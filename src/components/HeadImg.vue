@@ -3,7 +3,7 @@
     <img class="-img" src="../assets/logo.png">
     <div class="-info">
       <span class="-nickname">周星星</span>
-      <span class="-desc">sdsdsdsdsdsdssd</span>
+      <span class="-desc">共有32个提问，28个回答</span>
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
 .headimg{
-  background-color: #999;
+  /*background-color: #999;*/
   display: flex;
   padding: 5px;
   .-img{
@@ -32,14 +32,16 @@ export default {
   .-info{
     display: flex;
     flex-direction: column;
-    height: 100%;
-    background-color: yellow;
+    justify-content: space-between;
+    /*height: 100%;*/
+    /*background-color: yellow;*/
     .-nickname {
       padding: 5px 10px;
-      background-color: #888;
+      /*background-color: #888;*/
     }
     .-desc{
-
+      padding: 0 10px;
+      font-size: 14px;
     }
 
   }
