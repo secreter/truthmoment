@@ -1,0 +1,9 @@
+truthMoment=[
+	{
+		userid:'',
+		nickname:'',
+		sex:'',
+		question:'',
+		answer:''
+	}
+]

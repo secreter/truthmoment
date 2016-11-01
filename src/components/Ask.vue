@@ -3,7 +3,7 @@
     <div class="-input">
     	<textarea row='10' class="-textarea" v-model="question"></textarea>
     	<div class="-btn-wrap">
-    		<btn class="-btn" size="small" type="primary">提问</btn>
+    		<btn class="-btn" size="small" type="primary" @click.native="add">提问</btn>
     	</div>
     	
     </div>
@@ -16,6 +16,7 @@
 </template>
 <script>
 import { Button   } from 'mint-ui'
+import IndexDB from '../api/IndexDB'
 export default{
 	data(){
 		return {
@@ -27,8 +28,14 @@ export default{
 				'暗恋的人名字首字母是什么？',
 				''
 			],
-			question: ''
+			question: '',
+			db: null,
+			store: null
 		}
+	},
+	created() {
+		console.log(1)
+		this.init()
 	},
 	components: {
 		btn: Button
@@ -36,6 +43,41 @@ export default{
 	methods: {
 		setQuestion(q){
 			this.question=q
+		},
+		init(){
+			let dbObj=new IndexDB()
+			dbObj.open()
+			.then((db) => {
+				this.db=db
+				if(!db.objectStoreNames.contains("qa_data")) {
+				     db.createObjectStore("qa_data", { keyPath: "userid" })  //创建仓库
+				}
+				//transaction方法用于创建一个数据库事务。向数据库添加数据之前，必须先创建数据库事务。
+				let t = db.transaction(["qa_data"],"readwrite")
+				this.store = t.objectStore("qa_data")
+				console.log(this.store,11)
+				this.store.add(obj,1);
+			})
+			.catch((e) => {
+				console.warn(e)
+			})
+		},
+		add(){
+			let obj={
+				userid:'',
+				nickname:'',
+				sex:'',
+				question:this.question,
+				answer:''
+			}
+			console.log(obj)
+			let request = this.store.add(obj,1);
+			request.onerror = function(e) {
+			     console.error("Error",e.target.error.name);
+			}
+			request.onsuccess = function(e) {
+			    console.log("数据添加成功！");
+			}
 		}
 	}
 }
