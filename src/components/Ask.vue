@@ -30,7 +30,8 @@ export default{
 			],
 			question: '',
 			db: null,
-			store: null
+			store: null,
+			userid:1
 		}
 	},
 	created() {
@@ -46,32 +47,33 @@ export default{
 		},
 		init(){
 			let dbObj=new IndexDB()
-			dbObj.open()
+			dbObj.open("truthMoment",1,"qa_data","userid")
 			.then((db) => {
 				this.db=db
-				if(!db.objectStoreNames.contains("qa_data")) {
-				     db.createObjectStore("qa_data", { keyPath: "userid" })  //创建仓库
-				}
+				
 				//transaction方法用于创建一个数据库事务。向数据库添加数据之前，必须先创建数据库事务。
-				let t = db.transaction(["qa_data"],"readwrite")
-				this.store = t.objectStore("qa_data")
-				console.log(this.store,11)
-				this.store.add(obj,1);
+				// let t = db.transaction(["qa_data"],"readwrite")
+				// this.store = store
+				// console.log(this.store,11)
+				// this.store.add(obj,1);
 			})
 			.catch((e) => {
 				console.warn(e)
 			})
 		},
 		add(){
+			
 			let obj={
-				userid:'',
+				userid:this.userid++,
 				nickname:'',
 				sex:'',
 				question:this.question,
 				answer:''
 			}
+			this.store = this.db.transaction(["qa_data"],"readwrite").objectStore("qa_data")
 			console.log(obj)
-			let request = this.store.add(obj,1);
+			console.log(this.store,11)
+			let request = this.store.add(obj);
 			request.onerror = function(e) {
 			     console.error("Error",e.target.error.name);
 			}
