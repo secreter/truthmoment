@@ -3,12 +3,12 @@
     <div class="question">
       <span class="-head">?</span>
       <span class="-tip">问：</span>
-      <span class="-words">李智是2b吗</span>
+      <span class="-words">{{question}}</span>
     </div>
-    <div class="anwser">
+    <div class="answer">
       <span class="-head"></span>
       <span class="-tip">答：</span>
-      <span class="-words">是。</span>
+      <span class="-words">{{answer}}</span>
     </div>
   </div>
 
@@ -19,7 +19,8 @@ export default {
   data () {
     return {
     }
-  }
+  },
+  props:['question','answer']
 }
 </script>
 
@@ -51,7 +52,7 @@ export default {
 
     }
   }
-  .anwser{
+  .answer{
     display: flex;
     align-items: center;
     padding: 5px 0;

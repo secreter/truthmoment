@@ -3,7 +3,7 @@
     <tab-container v-model="active">
       <tab-container-item id="tab-container1">
         <head-img></head-img>
-        <qa-item v-for="n in 5"></qa-item> 
+        <qa-item v-for="item in dataArr" :question="item.question" :answer="item.answer"></qa-item> 
         <div class="btn-wrap">
           <span class="btn" @click="page2">我要提问</span>
           <span class="btn" @click="page3">挑战真心话</span>
@@ -34,17 +34,23 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import HeadImg from './components/HeadImg'
 import QaItem from './components/qaItem'
 import Subscribe from './components/Subscribe'
 import Ask from './components/Ask'
+import IndexDB from './api/IndexDB'
 import { Button, Cell, Popup, TabContainer, TabContainerItem, Badge ,Header   } from 'mint-ui'
 
 export default {
   data(){
     return {
-      active: 'tab-container1'
+      active: 'tab-container1',
+      dataArr: []
     }
+  },
+  mounted(){
+    this.init()
   },
   name: 'app',
   components: {
@@ -69,7 +75,36 @@ export default {
     },
     page3(){
       this.active = 'tab-container3'
+    },
+    init(){
+      let dbObj=new IndexDB()
+      let vm=this
+      dbObj.open("truthMoment",1,"qa_data","userid")
+      .then((db) => {
+        vm.db=db
+        let store = vm.db.transaction(["qa_data"],"readonly").objectStore("qa_data")
+        //在当前对象仓库里面建立一个读取光标（cursor）
+        let cursor = store.openCursor()
+        cursor.onsuccess = function(e) {
+          var res = e.target.result;
+          if(res) {
+            // console.log("Key", res.key);
+            // console.log("Data", res.value);
+            console.log(vm.dataArr)
+            vm.dataArr.push(res.value)
+
+
+            
+            // Vue.set(this, 'dataArr', res.value)
+            res.continue()
+          }
+        }
+      })
+      .catch((e) => {
+        console.warn(e)
+      })
     }
+
   }
 }
 </script>
