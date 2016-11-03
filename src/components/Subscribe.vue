@@ -1,7 +1,7 @@
 <template>
 	<div class="subscribe">
     <span>关注redream实时查看回复<badge type="error">9</badge></span>
-    <span>></span>
+    <span>👉</span>
   </div>
 </template>
 <script>
@@ -20,6 +20,7 @@ export default{
 <style lang='less'>
 	.subscribe{
 		padding: 15px 10px;
+		margin-top: 10px;
 		display: flex;
 		justify-content: space-between;
 		border-top:solid 1px #eee;

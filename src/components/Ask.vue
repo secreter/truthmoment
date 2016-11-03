@@ -88,7 +88,6 @@ export default{
 	.ask{
 		display: flex;
 		flex-direction: column;
-		background-color: #888;
 		padding: 10px;
 		.-input{
 			display: flex;
@@ -102,12 +101,16 @@ export default{
 				justify-content: flex-end;
 				.-btn{
 					margin: 5px 0;
+					background-color: #5aa8dd;
 				}
 			}
 			
 		}
 		.-question{
-			background-color: #fff;
+			background-color: #f8f8f8;
+			padding: 10px;
+			border-radius: 3px;
+			box-shadow: 0 1px 2px 1px rgba(0,0,0,0.3);
 			.-title{
 				padding: 15px 0 0 0;
 				font-size: 14px;
@@ -122,8 +125,12 @@ export default{
 				border:solid 1px #e6b54c;
 				border-radius: 3px;
 				font-size: 14px;
-				color: #888;
+				color: #666;
+				&:active{
+					background-color: rgba(255,233,120,1);
+				}
 			}
+
 		}
 	}
 </style>
