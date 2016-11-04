@@ -5,7 +5,7 @@
       <span class="-tip">问：</span>
       <span class="-words">{{question}}</span>
     </div>
-    <div class="answer">
+    <div class="answer" v-if="!!answer">
       <span class="-head" :style="{background:'url(http://wx.qlogo.cn/mmopen/16Q9aDojjfkMRfo7TSc9F3SEIiaLaLppczYn5sZ3ceZZUcxGryMH8G5M8bpYfdaQ0JlwNx2yaw9OLNrrrxqAebUFLN2voWlBib/132) no-repeat center center',backgroundSize: 'contain'}" ></span>
       <span class="-tip" >答：</span>
       <span class="-words">{{answer}}</span>

@@ -7,27 +7,27 @@
           <span class="-tip">问：</span>
           <span class="-words">{{item.question}}</span>
         </div>
-        <div class="-right">
-          <btn class="-btn -b1" size="small">回复</btn>
+        <div class="-right" v-if="!item.answer">
+          <btn class="-btn -b1" size="small" @click.native="showInput(index)">回复</btn>
         </div>
       </div>
-      <div class="answer">
+      <div class="answer" v-if="!!item.answer">
         <div class="-up">
           <span class="-head"></span>
           <span class="-tip">答：</span>
           <span class="-words">{{item.answer}}</span>
         </div>
-        <div class="-down">
-          <btn class="-btn -b2" size="small">删除</btn>
-          <btn class="-btn -b3" size="small">编辑</btn>
+        <div class="-down" v-if="!answerInuptShow[index]">
+          <btn class="-btn -b2" size="small" @click.native="del(item)">删除</btn>
+          <btn class="-btn -b3" size="small"  @click.native="showInput(index)">编辑</btn>
         </div>
       </div>
-      <div class="text-input">
+      <div class="text-input" v-if="answerInuptShow[index]">
         <div class="-up">
-          <textarea class="-input" v-model="answerArr[index]"></textarea>
+          <textarea required class="-input" v-model="answerArr[index]"></textarea>
         </div>
         <div class="-down">
-          <btn class="-btn -b4" size="small" @click.native="update(item,answerArr[index])">确定</btn>
+          <btn class="-btn -b4" size="small" @click.native="update(item,answerArr[index],index)">确定</btn>
         </div>
       </div>
     </div>
@@ -43,7 +43,8 @@ export default {
     return {
       db: {},
       dataArr: [],
-      answerArr:[]
+      answerArr:[],
+      answerInuptShow:[]
     }
   },
   mounted(){
@@ -80,7 +81,7 @@ export default {
         console.warn(e)
       })
     },
-    update(item,answer){
+    update(item,answer,index){
       // let obj={
       //   userid:this.userid++,
       //   nickname:'',
@@ -88,6 +89,8 @@ export default {
       //   question:this.question,
       //   answer:''
       // }
+      if(!answer||!answer.toString().trim())
+        return
       let store = this.db.transaction(["qa_data"],"readwrite").objectStore("qa_data")
       item.answer=answer
       let request = store.put(item)
@@ -97,9 +100,30 @@ export default {
       request.onsuccess = function(e) {
           console.log("数据修改成功！");
       }
+      if(index!==undefined){
+        this.hideInput(index)
+      }
+    },
+    del(item){
+      let store = this.db.transaction(["qa_data"],"readwrite").objectStore("qa_data")
+      item.answer=''
+      let request = store.put(item)
+      request.onerror = function(e) {
+           console.error("Error",e.target.error.name);
+      }
+      request.onsuccess = function(e) {
+          console.log("评论删除成功！");
+      }
+    },
+    showInput(index){
+      this.answerInuptShow.splice(index,1,true)
+    },
+    hideInput(index){
+      this.answerInuptShow.splice(index,1,false)
+      console.log(index)
     }
-  },
 
+  }
 }
 </script>
 

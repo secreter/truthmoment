@@ -1,5 +1,8 @@
 <template>
 	<div class="ask">
+		<popup class="pop" position="top" :modal="false" v-model="popupVisible">
+			提问成功~
+		</popup>
     <div class="-input">
     	<textarea row='10' class="-textarea" v-model="question"></textarea>
     	<div class="-btn-wrap">
@@ -15,7 +18,7 @@
   </div>
 </template>
 <script>
-import { Button   } from 'mint-ui'
+import { Button ,Popup   } from 'mint-ui'
 import IndexDB from '../api/IndexDB'
 export default{
 	data(){
@@ -31,7 +34,8 @@ export default{
 			question: '',
 			db: null,
 			store: null,
-			userid:1
+			userid:1,
+			popupVisible:false
 		}
 	},
 	created() {
@@ -39,7 +43,8 @@ export default{
 		this.init()
 	},
 	components: {
-		btn: Button
+		btn: Button,
+		Popup 
 	},
 	methods: {
 		setQuestion(q){
@@ -72,7 +77,6 @@ export default{
 			}
 			this.store = this.db.transaction(["qa_data"],"readwrite").objectStore("qa_data")
 			console.log(obj)
-			console.log(this.store,11)
 			let request = this.store.add(obj);
 			request.onerror = function(e) {
 			     console.error("Error",e.target.error.name);
@@ -80,6 +84,10 @@ export default{
 			request.onsuccess = function(e) {
 			    console.log("数据添加成功！");
 			}
+			setTimeout(() => {
+				this.popupVisible=false
+			},2000)
+			this.popupVisible=true
 		}
 	}
 }
@@ -99,6 +107,7 @@ export default{
 			.-btn-wrap{
 				display: flex;
 				justify-content: flex-end;
+			
 				.-btn{
 					margin: 5px 0;
 					background-color: #5aa8dd;
@@ -132,5 +141,14 @@ export default{
 			}
 
 		}
+	}
+	.pop{
+		height: 60px;
+		width: 100%;
+		background-color: rgba(0,0,0,.5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #fff;
 	}
 </style>
