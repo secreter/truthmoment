@@ -19,7 +19,7 @@
 </template>
 <script>
 import { Button ,Popup   } from 'mint-ui'
-import IndexDB from '../api/IndexDB'
+import {add_item} from '../api/request'
 export default{
 	data(){
 		return {
@@ -38,8 +38,8 @@ export default{
 			popupVisible:false
 		}
 	},
+	props:['parentid'],
 	created() {
-		console.log(1)
 		this.init()
 	},
 	components: {
@@ -51,39 +51,15 @@ export default{
 			this.question=q
 		},
 		init(){
-			let dbObj=new IndexDB()
-			dbObj.open("truthMoment",1,"qa_data","userid")
-			.then((db) => {
-				this.db=db
-				
-				//transaction方法用于创建一个数据库事务。向数据库添加数据之前，必须先创建数据库事务。
-				// let t = db.transaction(["qa_data"],"readwrite")
-				// this.store = store
-				// console.log(this.store,11)
-				// this.store.add(obj,1);
-			})
-			.catch((e) => {
-				console.warn(e)
-			})
+			
 		},
 		add(){
-			
 			let obj={
-				userid:this.userid++,
-				nickname:'',
-				sex:'',
-				question:this.question,
-				answer:''
+				parentid:this.parentid,
+				userid:'o6UDkwIppYchG79HknNe-9fuYugQ',
+				question: this.question
 			}
-			this.store = this.db.transaction(["qa_data"],"readwrite").objectStore("qa_data")
-			console.log(obj)
-			let request = this.store.add(obj);
-			request.onerror = function(e) {
-			     console.error("Error",e.target.error.name);
-			}
-			request.onsuccess = function(e) {
-			    console.log("数据添加成功！");
-			}
+			add_item(obj)
 			setTimeout(() => {
 				this.popupVisible=false
 			},2000)

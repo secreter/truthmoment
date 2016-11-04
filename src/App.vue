@@ -2,7 +2,7 @@
   <div id="app">
     <tab-container v-model="active">
       <tab-container-item id="tab-container1">
-        <head-img></head-img>
+        <head-img :userinfo="userObj" :question="dataArr.length" :answer="answerNum"></head-img>
         <div class="empty" v-if="dataArr.length==0">
           暂时还没有问题，赶紧分享到朋友圈让小伙伴们来提问吧~
         </div>
@@ -25,7 +25,7 @@
           <btn slot="left" icon="back" @click.native="page1">
           </btn>
         </mt-header> 
-        <ask></ask>
+        <ask :parentid="userObj.id"></ask>
         <Subscribe></Subscribe>
       </tab-container-item>
       <tab-container-item id="tab-container3">
@@ -36,7 +36,7 @@
         <div class="notice">
           你已发起真心话挑战，你可以选择性的回答朋友提出的问题，只有被回答的问题会被显示出来。但会显示总提问数和总回答数。分享本页面立即结束挑战~
         </div>
-        <reply></reply>
+        <reply :items="dataArr"></reply>
         <Subscribe></Subscribe>
       </tab-container-item>
     </tab-container>
@@ -50,14 +50,17 @@ import QaItem from './components/qaItem'
 import Subscribe from './components/Subscribe'
 import Ask from './components/Ask'
 import reply from './components/reply'
-import IndexDB from './api/IndexDB'
+import {add_item, get_item, get_user_info} from './api/request'
+import Cookie from './api/Cookie'
 import { Button, Cell, Popup, TabContainer, TabContainerItem, Badge ,Header   } from 'mint-ui'
 
 export default {
   data(){
     return {
       active: 'tab-container1',
-      dataArr: []
+      dataArr: [],
+      userObj: {},
+      answerNum: 0
     }
   },
   mounted(){
@@ -87,35 +90,44 @@ export default {
       this.active = 'tab-container2'
     },
     page3(){
-      this.active = 'tab-container3'
+      // this.active = 'tab-container3'
+      location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96bfa7c4e7c79526&redirect_uri='+encodeURI('http://item.redream.cn/truthmoment/back_api/share.php')+'&response_type=code&scope=snsapi_userinfo&state=9#wechat_redirect'
     },
     init(){
-      let dbObj=new IndexDB()
-      let vm=this
-      vm.dataArr.length=0
-      dbObj.open("truthMoment",1,"qa_data","userid")
-      .then((db) => {
-        vm.db=db
-        let store = vm.db.transaction(["qa_data"],"readonly").objectStore("qa_data")
-        //在当前对象仓库里面建立一个读取光标（cursor）
-        let cursor = store.openCursor()
-        cursor.onsuccess = function(e) {
-          var res = e.target.result;
-          if(res) {
-            // console.log("Key", res.key);
-            // console.log("Data", res.value);
-            console.log(vm.dataArr)
-
-            vm.dataArr.push(res.value)
-            res.continue()
-          }
-        }
+      let cookie=new Cookie()
+      if(cookie.get('truthMomentOpenid')===this.getParam('userid')){
+        this.active = 'tab-container3'
+      }
+      get_user_info(this.getParam('id'))
+      .then((data) => {
+        this.userObj=data
+        get_item(this.userObj.openid)
+        .then((itemArr) => {
+          this.dataArr=itemArr
+          itemArr.forEach((o) => {
+            if (o.answer) {
+              this.answerNum++
+            }
+          })
+        })
+        .catch((e) =>{
+          console.error('get_item',e)
+        }) 
       })
-      .catch((e) => {
-        console.warn(e)
+      .catch((e) =>{
+        console.error('get_user_info',e)
+      }) 
+    },
+    getParam(key){
+      let str=location.search.replace('?','')
+      let arr=str.split('&')
+      let obj={}
+      arr.forEach((s) => {
+        let a=s.split('=')
+        obj[a[0]]=a[1]
       })
+      return obj[key]
     }
-
   }
 }
 </script>

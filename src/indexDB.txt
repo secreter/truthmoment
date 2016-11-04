@@ -7,3 +7,31 @@ truthMoment=[
 		answer:''
 	}
 ]
+	
+//mysql
+create table truthMoment(
+id int primary key auto_increment,
+parentid varchar(64) not null,
+question varchar(1024) not null,
+answer varchar(1024) default null,
+ip varchar(128),
+time int,
+index parentid_index (parentid(64))  
+)
+
+obj={
+	parentid:'o6UDkwIppYchG79HknNe-9fuYugQ',
+	question:'你喜欢的人是谁？',
+	answer:'不告诉你',
+	time:'1213213'
+}
+
+//userinfo
+create table truthMoment_user(
+id int primary key auto_increment,
+openid varchar(64) not null,
+nickname varchar(128) not null,
+headimgurl varchar(256) not null,
+time int,
+index openid_index (openid(64))  
+)

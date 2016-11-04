@@ -1,9 +1,9 @@
 <template>
   <div class="headimg">
-    <img class="-img" src="http://wx.qlogo.cn/mmopen/16Q9aDojjfkMRfo7TSc9F3SEIiaLaLppczYn5sZ3ceZZUcxGryMH8G5M8bpYfdaQ0JlwNx2yaw9OLNrrrxqAebUFLN2voWlBib/132">
+    <img class="-img" :src="userinfo.headimgurl">
     <div class="-info">
-      <span class="-nickname">周星星</span>
-      <span class="-desc">共有32个提问，28个回答</span>
+      <span class="-nickname">{{userinfo.nickname}}</span>
+      <span class="-desc">共有{{question}}个提问，{{answer}}个回答</span>
     </div>
   </div>
 </template>
@@ -13,9 +13,9 @@ export default {
   name: 'HeadImg',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
-  }
+  },
+  props:['userinfo','question','answer']
 }
 </script>
 

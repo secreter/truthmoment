@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <div class="reply-wrap" v-for="(item,index) in dataArr">
+    <div class="reply-wrap" v-for="(item,index) in items">
       <div class="question">
         <div class="-left">
           <span class="-head">?</span>
@@ -18,7 +18,7 @@
           <span class="-words">{{item.answer}}</span>
         </div>
         <div class="-down" v-if="!answerInuptShow[index]">
-          <btn class="-btn -b2" size="small" @click.native="del(item)">删除</btn>
+          <btn class="-btn -b2" size="small" @click.native="del(item,index)">删除</btn>
           <btn class="-btn -b3" size="small"  @click.native="showInput(index)">编辑</btn>
         </div>
       </div>
@@ -36,17 +36,17 @@
 </template>
 
 <script>
-import IndexDB from '../api/IndexDB'
+import {update_item} from '../api/request'
 import { Button } from 'mint-ui'
 export default {
   data () {
     return {
       db: {},
-      dataArr: [],
       answerArr:[],
       answerInuptShow:[]
     }
   },
+  props: ['items'],
   mounted(){
     this.init()
   },
@@ -56,64 +56,40 @@ export default {
   },
   methods: {
     init(){
-      let dbObj=new IndexDB()
-      let vm=this
-      vm.dataArr.length=0
-      dbObj.open("truthMoment",1,"qa_data","userid")
-      .then((db) => {
-        vm.db=db
-        let store = vm.db.transaction(["qa_data"],"readonly").objectStore("qa_data")
-        //在当前对象仓库里面建立一个读取光标（cursor）
-        let cursor = store.openCursor()
-        cursor.onsuccess = function(e) {
-          var res = e.target.result;
-          if(res) {
-            // console.log("Key", res.key);
-            // console.log("Data", res.value);
-            console.log(vm.dataArr)
-
-            vm.dataArr.push(res.value)
-            res.continue()
-          }
-        }
-      })
-      .catch((e) => {
-        console.warn(e)
-      })
+      
     },
     update(item,answer,index){
       // let obj={
-      //   userid:this.userid++,
-      //   nickname:'',
-      //   sex:'',
-      //   question:this.question,
-      //   answer:''
+      //   id:'',
+      //   parentid:'',
+      //   question:'',
+      //   answer:'',
+      //   ip:'',
+      //   time:'',
       // }
       if(!answer||!answer.toString().trim())
         return
-      let store = this.db.transaction(["qa_data"],"readwrite").objectStore("qa_data")
-      item.answer=answer
-      let request = store.put(item)
-      request.onerror = function(e) {
-           console.error("Error",e.target.error.name);
-      }
-      request.onsuccess = function(e) {
-          console.log("数据修改成功！");
-      }
+      this.items[index]['answer']=answer
+      update_item(item.id,answer)
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
       if(index!==undefined){
         this.hideInput(index)
       }
     },
-    del(item){
-      let store = this.db.transaction(["qa_data"],"readwrite").objectStore("qa_data")
-      item.answer=''
-      let request = store.put(item)
-      request.onerror = function(e) {
-           console.error("Error",e.target.error.name);
-      }
-      request.onsuccess = function(e) {
-          console.log("评论删除成功！");
-      }
+    del(item,index){
+      this.items[index]['answer']=''
+      update_item(item.id,'')
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
     },
     showInput(index){
       this.answerInuptShow.splice(index,1,true)
