@@ -6,7 +6,7 @@
         <div class="empty" v-if="dataArr.length==0">
           暂时还没有问题，赶紧分享到朋友圈让小伙伴们来提问吧~
         </div>
-        <qa-item v-for="item in dataArr" :question="item.question" :answer="item.answer"></qa-item> 
+        <qa-item v-for="item in dataArr" :question="item.question" :answer="item.answer" :userinfo="userObj"></qa-item> 
         <div class="btn-wrap">
           <span class="btn" @click="page2">我要提问</span>
           <span class="btn" @click="page3">挑战真心话</span>
@@ -25,18 +25,19 @@
           <btn slot="left" icon="back" @click.native="page1">
           </btn>
         </mt-header> 
-        <ask :parentid="userObj.id"></ask>
+        <ask :parentid="id"></ask>
         <Subscribe></Subscribe>
       </tab-container-item>
       <tab-container-item id="tab-container3">
         <mt-header  title="挑战真心话">
-          <btn slot="left" icon="back" @click.native="page1">
-          </btn>
         </mt-header>
         <div class="notice">
-          你已发起真心话挑战，你可以选择性的回答朋友提出的问题，只有被回答的问题会被显示出来。但会显示总提问数和总回答数。分享本页面立即结束挑战~
+          你已发起真心话挑战，你可以选择性的回答朋友提出的问题，只有被回答的问题会被显示出来。但会显示总提问数和总回答数。分享本页面立即接受挑战~
         </div>
-        <reply :items="dataArr"></reply>
+        <reply :items="dataArr" :userinfo="userObj"></reply>
+        <div class="again">
+          <span class="btn" @click="page3">再玩一次</span>
+        </div>
         <Subscribe></Subscribe>
       </tab-container-item>
     </tab-container>
@@ -60,7 +61,9 @@ export default {
       active: 'tab-container1',
       dataArr: [],
       userObj: {},
-      answerNum: 0
+      answerNum: 0,
+      id:-1,
+      headimgurl:''
     }
   },
   mounted(){
@@ -84,7 +87,6 @@ export default {
   methods:{
     page1(){
       this.active = 'tab-container1'
-      this.init()
     },
     page2(){
       this.active = 'tab-container2'
@@ -95,28 +97,32 @@ export default {
     },
     init(){
       let cookie=new Cookie()
+      this.id=this.getParam('id')
       if(cookie.get('truthMomentOpenid')===this.getParam('userid')){
         this.active = 'tab-container3'
       }
-      get_user_info(this.getParam('id'))
+      get_user_info(this.id)
       .then((data) => {
         this.userObj=data
-        get_item(this.userObj.openid)
-        .then((itemArr) => {
-          this.dataArr=itemArr
-          itemArr.forEach((o) => {
-            if (o.answer) {
-              this.answerNum++
-            }
-          })
-        })
-        .catch((e) =>{
-          console.error('get_item',e)
-        }) 
+        this.headimgurl=data.headimgurl
+        // Object.assign(this.userObj,data)
+        
       })
       .catch((e) =>{
         console.error('get_user_info',e)
       }) 
+      get_item(this.id)
+      .then((itemArr) => {
+        this.dataArr=itemArr
+        itemArr.forEach((o) => {
+          if (o.answer) {
+            this.answerNum++
+          }
+        })
+      })
+      .catch((e) =>{
+        console.error('get_item',e)
+      })
     },
     getParam(key){
       let str=location.search.replace('?','')
@@ -141,10 +147,14 @@ export default {
   padding: 15px;
 }
 .empty{
-  margin: 10px;
   padding: 20px;
-  background-color: #ddd;
   text-align: justify;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: #999;
+  font-size: 13px;
 }
 .btns{
   width: 100%;
@@ -168,11 +178,18 @@ export default {
 .btn:active{
   opacity: 0.8;
 }
+.again{
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
 .notice{
   margin: 10px;
   padding: 10px;
   text-align: justify;
-  background-color: #ddd;
+  background-color: #dfdfdf;
+  font-size: 12px;
+  color: #666;
 }
 .introduce{
   margin: 10px;

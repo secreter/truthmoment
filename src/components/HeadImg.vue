@@ -23,17 +23,22 @@ export default {
 <style lang='less' scoped>
 .headimg{
   display: flex;
-  padding: 5px;
-  box-shadow: 0 1px 0px 1px rgba(0,0,0,0.3);
+  padding: 15px 20px;
+  box-shadow: 0 0px 1px 1px rgba(0,0,0,0.1);
+  background-color: #999;
+  background: url("http://item.redream.cn/truthmoment/back_api/bg1.jpg") no-repeat;
+  background-size: cover;
+  color: #fff;
   .-img{
-    width:64px;
-    height: 64px;
-    border: solid 1px #864;
+    width:80px;
+    height: 80px;
+    border: solid 2px #fff;
+    border-radius: 50%;
   }
   .-info{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     /*height: 100%;*/
     /*background-color: yellow;*/
     .-nickname {

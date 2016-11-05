@@ -1,12 +1,12 @@
 <template>
-  <div class="qa-wrap">
+  <div class="qa-wrap" v-if="!!answer">
     <div class="question">
       <span class="-head">?</span>
       <span class="-tip">问：</span>
       <span class="-words">{{question}}</span>
     </div>
-    <div class="answer" v-if="!!answer">
-      <span class="-head" :style="{background:'url(http://wx.qlogo.cn/mmopen/16Q9aDojjfkMRfo7TSc9F3SEIiaLaLppczYn5sZ3ceZZUcxGryMH8G5M8bpYfdaQ0JlwNx2yaw9OLNrrrxqAebUFLN2voWlBib/132) no-repeat center center',backgroundSize: 'contain'}" ></span>
+    <div class="answer">
+      <span class="-head" :style="styleObj" ></span>
       <span class="-tip" >答：</span>
       <span class="-words">{{answer}}</span>
     </div>
@@ -18,9 +18,18 @@
 export default {
   data () {
     return {
+      
     }
   },
-  props:['question','answer']
+  computed:{
+    styleObj(){
+      return {
+        background:'url('+this.userinfo.headimgurl+') no-repeat center center',
+        backgroundSize: 'contain'
+      }
+    }
+  },
+  props:['question','answer','headimg','userinfo']
 }
 </script>
 
@@ -28,13 +37,17 @@ export default {
 <style lang='less' scoped>
 .qa-wrap{
   width: 100%;
-  padding: 10px;
-  background-color: #f7f7ee;
-  border-bottom: solid 1px #eee;
-
+  padding: 5px 10px;
+  box-sizing: border-box;
+  /*background-color: #f7f7ee;*/
+  border-bottom: solid 1px #f8f8f8;
+  font-size: 13px;
+  color: #999;
+  word-break: break-all;
+  text-align: justify;
   .question{
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     padding: 5px 0;
     .-head{
       display: flex;
@@ -43,21 +56,23 @@ export default {
       background-color: #f3c38a;
       height: 30px;
       width: 30px;
+      min-width: 30px;
       margin: 0 5px;
       border-radius: 100%;
       color: #fff;
     }
     .-tip{
-
+      min-width: 35px;
+      margin-top: 5px;
     }
     .-words{
-
+      margin-top: 5px;
     }
   }
   .answer{
     display: flex;
-    align-items: center;
-    padding: 5px 0;
+    /*align-items: center;*/
+    padding: 0 0 5px 0;
     .-head{
       display: flex;
       align-items: center;
@@ -65,15 +80,17 @@ export default {
       background-color: #64d;
       height: 30px;
       width: 30px;
+      min-width: 30px;
       margin: 0 5px;
       border-radius: 100%;
       
     }
     .-tip{
-
+      min-width: 35px;
+      margin-top: 5px;
     }
     .-words{
-      
+      margin-top: 5px;
     }
   }
 }

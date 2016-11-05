@@ -8,7 +8,8 @@ export function add_item(dataObj) {
 		dataType:'jsonp',
 		data: dataObj,
 		success: (data) => {
-			console.log(data)
+			// console.log(data)
+			console.log("add_item",'success')
 		},
 		error: (e) => {
 			console.error(e)
@@ -26,7 +27,8 @@ export function get_item(userid) {
 				parentid: userid
 			},
 			success: (data) => {
-				console.log(data)
+				// console.log(data)
+				console.log("get_item",'success')
 				resolve(data.itemArr)
 			},
 			error: (e) => {
@@ -48,7 +50,8 @@ export function update_item(id,answer) {
 				answer
 			},
 			success: (data) => {
-				console.log(data)
+				// console.log(data)
+				console.log("update_item",'success')
 				resolve(data)
 			},
 			error: (e) => {
@@ -69,7 +72,8 @@ export function get_user_info(id){
 				id
 			},
 			success: (data) => {
-				console.log(data)
+				// console.log(data)
+				console.log("get_user_info",'success')
 				resolve(data.data)
 			},
 			error: (e) => {

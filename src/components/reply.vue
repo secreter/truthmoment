@@ -1,5 +1,8 @@
 <template>
   <div class="wrap">
+    <div class="noitem" v-if="!items.length">
+      暂时还没有提问，快去分享让小伙伴们来提问吧~
+    </div>
     <div class="reply-wrap" v-for="(item,index) in items">
       <div class="question">
         <div class="-left">
@@ -13,7 +16,7 @@
       </div>
       <div class="answer" v-if="!!item.answer">
         <div class="-up">
-          <span class="-head"></span>
+          <span class="-head" :style="styleObj"></span>
           <span class="-tip">答：</span>
           <span class="-words">{{item.answer}}</span>
         </div>
@@ -41,16 +44,22 @@ import { Button } from 'mint-ui'
 export default {
   data () {
     return {
-      db: {},
-      answerArr:[],
-      answerInuptShow:[]
+      answerArr:Array(100),
+      answerInuptShow:Array(100),
     }
   },
-  props: ['items'],
+  computed:{
+    styleObj(){
+      return {
+        background:'url('+this.userinfo.headimgurl+') no-repeat center center',
+        backgroundSize: 'contain'
+      }
+    }
+  },
+  props: ['items','headimg','userinfo'],
   mounted(){
     this.init()
   },
-  // props:['question','answer'],
   components: {
     btn: Button
   },
@@ -72,7 +81,7 @@ export default {
       this.items[index]['answer']=answer
       update_item(item.id,answer)
       .then((result) => {
-        console.log(result)
+        // console.log(result)
       })
       .catch((e) => {
         console.error(e)
@@ -105,12 +114,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
+.noitem{
+  height: 100px;
+  font-size: 13px;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
 .reply-wrap{
   width: 100%;
   padding: 10px;
   background-color: #f8f8f8;
   border-bottom: solid 1px #eee;
   box-sizing: border-box;
+  word-break: break-all;
+  text-align: justify;
   .question{
     display: flex;
     align-items: center;
@@ -118,7 +138,7 @@ export default {
     justify-content: space-between;
     .-left{
       display: flex;
-      align-items: center;
+      /*align-items: center;*/
     }
     .-head{
       display: flex;
@@ -127,14 +147,17 @@ export default {
       background-color: #f3c38a;
       height: 30px;
       width: 30px;
+      min-width: 30px;
       margin: 0 5px;
       border-radius: 100%;
       color: #fff;
     }
     .-tip{
-
+      min-width: 30px;
+      margin-top: 5px;
     }
     .-words{
+      margin-top: 5px;
 
     }
     .-b1{
@@ -148,7 +171,7 @@ export default {
     .-up{
       display: flex;
       flex-direction: row;
-      align-items: center;
+      /*align-items: center;*/
     }
     .-down{
       display: flex;
@@ -161,14 +184,16 @@ export default {
       background-color: #f3c38a;
       height: 30px;
       width: 30px;
+      min-width: 30px;
       margin: 0 5px;
       border-radius: 100%;
     }
     .-tip{
-
+      min-width: 30px;
+      margin-top: 5px;
     }
     .-words{
-      
+      margin-top: 5px;
     }
     .-b2{
       background-color: #f54237;
@@ -205,6 +230,7 @@ export default {
     padding: 0 5px;
     font-size: 14px;
     height: 30px;
+    min-width: 45px;
     border-radius: 2px;
     align-self: flex-end;
     margin-left: 5px;
