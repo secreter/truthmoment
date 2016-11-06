@@ -13,7 +13,6 @@
     <div class="-question">
     	<div class="-title">	📝快速提问示例：</div>
     	<div class="-item" v-for="q in ansArr" @click="setQuestion(q)">{{q}}</div>
-    	
     </div>
   </div>
 </template>
@@ -82,9 +81,12 @@ export default{
 			setTimeout(() => {
 				this.popupVisible=false
 			},1500)
+			setTimeout(() => {
+				this.$emit('reply-success', null)
+			},1700)
 			this.popupVisible=true
 		}
-	}
+	},
 }
 </script>
 <style lang='less'>

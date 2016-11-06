@@ -4,12 +4,13 @@
       <tab-container-item id="tab-container1">
         <head-img :userinfo="userObj" :question="dataArr.length" :answer="answerNum"></head-img>
         <div class="empty" v-if="dataArr.length==0">
-          暂时还没有问题，赶紧分享到朋友圈让小伙伴们来提问吧~
+          暂时还没有问题，让小伙伴们飞一会儿~
         </div>
         <qa-item v-for="item in dataArr" :question="item.question" :answer="item.answer" :userinfo="userObj"></qa-item> 
         <div class="btn-wrap">
-          <span class="btn" @click="page2">我要提问</span>
-          <span class="btn" @click="page3">挑战真心话</span>
+          <span v-if="!isSelf" class="btn" @click="page2">我要提问</span>
+          <span v-if="isSelf" class="btn" @click="page3">去回复</span>
+          <span class="btn" @click="page4">挑战真心话</span>
           
           <!-- <btn class="btns" size="small" color="#ffe957" type="primary" @click.native="page2">我要提问</btn>
           <btn class="btns" size="small" type="primary" @click.native="page2">加入真心话</btn> -->
@@ -25,17 +26,18 @@
           <btn slot="left" icon="back" @click.native="page1">
           </btn>
         </mt-header> 
-        <ask :parentid="id"></ask>
+        <ask @reply-success="page1" :parentid="id"></ask>
         <Subscribe></Subscribe>
       </tab-container-item>
       <tab-container-item id="tab-container3">
         <mt-header  title="挑战真心话">
         </mt-header>
         <div class="notice">
-          你已发起真心话挑战，你可以选择性的回答朋友提出的问题，只有被回答的问题会被显示出来。但会显示总提问数和总回答数。分享本页面立即接受挑战~
+          你已发起真心话挑战，你可以选择性的回答朋友提出的问题，只有被回答的问题会被显示出来。但会显示总提问数和总回答数。
         </div>
         <reply :items="dataArr" :userinfo="userObj"></reply>
         <div class="again">
+          <span class="btn" @click="page1">我的主页</span>
           <span class="btn" @click="page3">再玩一次</span>
         </div>
         <Subscribe></Subscribe>
@@ -63,7 +65,8 @@ export default {
       userObj: {},
       answerNum: 0,
       id:-1,
-      headimgurl:''
+      headimgurl:'',
+      isSelf: false
     }
   },
   mounted(){
@@ -92,6 +95,9 @@ export default {
       this.active = 'tab-container2'
     },
     page3(){
+      this.active = 'tab-container3'
+    },
+    page4(){
       // this.active = 'tab-container3'
       location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96bfa7c4e7c79526&redirect_uri='+encodeURI('http://item.redream.cn/truthmoment/back_api/share.php')+'&response_type=code&scope=snsapi_userinfo&state=9#wechat_redirect'
     },
@@ -99,6 +105,7 @@ export default {
       let cookie=new Cookie()
       this.id=this.getParam('id')
       if(cookie.get('truthMomentOpenid')===this.getParam('userid')){
+        this.isSelf=true
         this.active = 'tab-container3'
       }
       get_user_info(this.id)

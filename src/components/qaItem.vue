@@ -24,8 +24,8 @@ export default {
   computed:{
     styleObj(){
       return {
-        background:'url('+this.userinfo.headimgurl+') no-repeat center center',
-        backgroundSize: 'contain'
+        // background:'url('+this.userinfo.headimgurl+') no-repeat center center',
+        background:'url('+this.userinfo.headimgurl+') center center / contain no-repeat',
       }
     }
   },

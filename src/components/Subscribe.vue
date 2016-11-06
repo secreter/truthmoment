@@ -1,7 +1,7 @@
 <template>
 	<div class="subscribe" @click="go">
-    <span>关注南开一梦发现更多有趣<badge type="error">9</badge></span>
-    <span>👉</span>
+    <span>@<a class="-link">“ 南开一梦 ”</a>出品<!-- <badge type="error">9</badge> --></span>
+    <!-- <span>👉</span> -->
   </div>
 </template>
 <script>
@@ -27,10 +27,14 @@ export default{
 		padding: 15px 10px;
 		margin-top: 10px;
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		border-top:solid 1px #eee;
 		border-bottom:solid 1px #eee;
 		font-size: 13px;
 		color: #999;
+		.-link{
+			color:#0066cc;
+			text-decoration: underline;
+		}
 	}
 </style>

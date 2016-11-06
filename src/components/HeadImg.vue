@@ -26,7 +26,7 @@ export default {
   padding: 15px 20px;
   box-shadow: 0 0px 1px 1px rgba(0,0,0,0.1);
   background-color: #999;
-  background: url("http://item.redream.cn/truthmoment/back_api/bg1.jpg") no-repeat;
+  background: url("http://og7lnhyuz.bkt.clouddn.com/bg1.jpg") no-repeat;
   background-size: cover;
   color: #fff;
   .-img{
