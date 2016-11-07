@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="noitem" v-if="!items.length">
-      暂时还没有提问，快去分享让小伙伴们来提问吧~
+      你已经成功接受挑战~暂时还没有提问，小伙伴们正在提问的路上~
     </div>
     <div class="reply-wrap" v-for="(item,index) in items">
       <div class="question">
@@ -120,6 +120,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
 
 }
 .reply-wrap{

@@ -4,3 +4,4 @@ dist/
 npm-debug.log
 src/*.txt
 back_api/
+*.php

@@ -38,7 +38,7 @@
         <reply :items="dataArr" :userinfo="userObj"></reply>
         <div class="again">
           <span class="btn" @click="page1">我的主页</span>
-          <span class="btn" @click="page3">再玩一次</span>
+          <span class="btn" @click="page4">再玩一次</span>
         </div>
         <Subscribe></Subscribe>
       </tab-container-item>
