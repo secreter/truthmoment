@@ -4,8 +4,6 @@ define(SECRET, "40db16a9e46dc3ba386bae7a3a4911b1");
 require_once "back_api/jssdk.php";
 $jssdk = new JSSDK(APPID, SECRET);
 $signPackage = $jssdk->GetSignPackage();
-$access_token=$jssdk->getAccessToken();
-
 
 ?>
 <!DOCTYPE html>
@@ -269,7 +267,7 @@ wx.ready(function () {
     // 在这里调用 API
     wx.onMenuShareTimeline({
 	    title: nickname+'接受了真心话挑战，匿名提问，表白也行哈哈~你敢问我就敢答', // 分享标题
-	    link: 'http://item.redream.cn/truthmoment/index.html?id=<?php echo $id;?>&userid=<?php echo $arr["openid"];?>', // 分享链接
+	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
 	    success: function () { 
 	        // 用户确认分享后执行的回调函数
@@ -281,7 +279,7 @@ wx.ready(function () {
 	wx.onMenuShareAppMessage({
 	    title: '<?php echo $arr["nickname"]."接受了真心话挑战，匿名提问，表白也行哈哈~你敢问我就敢答"; ?>', // 分享标题
 	    desc: '真心话大挑战，你敢应战否？', // 分享描述
-	    link: 'http://item.redream.cn/truthmoment/index.html?id=<?php echo $id;?>&userid=<?php echo $arr["openid"];?>', // 分享链接
+	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
 	    type: '', // 分享类型,music、video或link，不填默认为link
 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -295,7 +293,7 @@ wx.ready(function () {
 	wx.onMenuShareQQ({
 	    title: nickname+'接受了真心话挑战，匿名提问，表白也行哈哈~你敢问我就敢答', // 分享标题
 	    desc: '真心话大挑战，你敢应战否？', // 分享描述
-	    link: 'http://item.redream.cn/truthmoment/index.html?id=<?php echo $id;?>&userid=<?php echo $arr["openid"];?>', // 分享链接
+	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
 	    success: function () { 
 	       // 用户确认分享后执行的回调函数
@@ -307,7 +305,7 @@ wx.ready(function () {
 	wx.onMenuShareWeibo({
 	    title: nickname+'接受了真心话挑战，匿名提问，表白也行哈哈~你敢问我就敢答', // 分享标题
 	    desc: '真心话大挑战，你敢应战否？', // 分享描述
-	    link: 'http://item.redream.cn/truthmoment/index.html?id=<?php echo $id;?>&userid=<?php echo $arr["openid"];?>', // 分享链接
+	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
 	    success: function () { 
 	       // 用户确认分享后执行的回调函数
