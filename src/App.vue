@@ -11,6 +11,7 @@
           <span v-if="!isSelf" class="btn" @click="page2">我要提问</span>
           <span v-if="isSelf" class="btn" @click="page3">去回复</span>
           <span class="btn" @click="page4">挑战真心话</span>
+          <span class="btn" style="background-color:#ea6f5a" @click="zanshang">赞赏</span>
           
           <!-- <btn class="btns" size="small" color="#ffe957" type="primary" @click.native="page2">我要提问</btn>
           <btn class="btns" size="small" type="primary" @click.native="page2">加入真心话</btn> -->
@@ -18,6 +19,8 @@
         </div>
         <div class="introduce">
           Truth Moment: 发起于西方，提倡人与人相处真诚相待。后以真心话挑战走红网络，接受挑战者需诚实回答提问者提出的问题，提出问题的人即表示接受挑战，支持Truth Moment的理念。
+          <br>
+          南开一梦，只做有趣的。
         </div>
         <Subscribe></Subscribe>
       </tab-container-item>
@@ -39,11 +42,18 @@
         <div class="again">
           <span class="btn" @click="page1">我的主页</span>
           <span class="btn" @click="page4">再玩一次</span>
+          <span class="btn" style="background-color:#ea6f5a" @click="zanshang">赞赏</span>
         </div>
         <Subscribe></Subscribe>
       </tab-container-item>
     </tab-container>
     
+    <!-- 赞赏功能 -->
+    <popup
+      v-model="popupVisible"
+      popup-transition="popup-fade">
+      <img src="http://og7lnhyuz.bkt.clouddn.com/item/image/jpg/zanshang.jpgzanshang.jpg" alt="">
+    </popup>
   </div>
 </template>
 
@@ -66,7 +76,8 @@ export default {
       answerNum: 0,
       id:-1,
       headimgurl:'',
-      isSelf: false
+      isSelf: false,
+      popupVisible:false
     }
   },
   mounted(){
@@ -99,7 +110,10 @@ export default {
     },
     page4(){
       // this.active = 'tab-container3'
-      location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96bfa7c4e7c79526&redirect_uri='+encodeURI('http://item.redream.cn/truthmoment/back_api/share.php')+'&response_type=code&scope=snsapi_userinfo&state=9#wechat_redirect'
+      location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96bfa7c4e7c79526&redirect_uri='+encodeURI('http://item.redream.cn/truthmoment_2/back_api/share.php')+'&response_type=code&scope=snsapi_userinfo&state=9#wechat_redirect'
+    },
+    zanshang(){
+      this.popupVisible=true
     },
     init(){
       let cookie=new Cookie()
