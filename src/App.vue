@@ -20,7 +20,16 @@
         <div class="introduce">
           Truth Moment: 发起于西方，提倡人与人相处真诚相待。后以真心话挑战走红网络，接受挑战者需诚实回答提问者提出的问题，提出问题的人即表示接受挑战，支持Truth Moment的理念。
           <br>
+          <br>
           南开一梦，只做有趣的。
+          
+          <br>
+          <a class="a" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96bfa7c4e7c79526&redirect_uri=http%3A%2F%2Fitem.redream.cn%2Fpyq%2Ftalk.php&response_type=code&scope=snsapi_userinfo&state=3#wechat_redirect">@逗TA</a> 
+          <a class="a" href="http://item.redream.cn/trumptweet/">@川普Tweet</a> 
+          <a class="a" href="http://www.redream.cn/main/love.php">@表白墙</a> 
+          <a class="a" href="http://item.redream.cn/xuan/thanks/#">@thanks</a>
+          <a class="a" href="http://www.redream.cn/main/treehole.php">@树洞</a> 
+          <a class="a" :href="'http://www.redream.cn/weixin/redream/diary/index.php?id='+userObj['openid']">@树洞日记</a> 
         </div>
         <Subscribe></Subscribe>
       </tab-container-item>
@@ -37,6 +46,15 @@
         </mt-header>
         <div class="notice">
           你已发起真心话挑战，你可以选择性的回答朋友提出的问题，只有被回答的问题会被显示出来。但会显示总提问数和总回答数。
+          <br>
+          <br>
+          <a class="a" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx96bfa7c4e7c79526&redirect_uri=http%3A%2F%2Fitem.redream.cn%2Fpyq%2Ftalk.php&response_type=code&scope=snsapi_userinfo&state=3#wechat_redirect">@逗TA</a> 
+          <a class="a" href="http://item.redream.cn/trumptweet/">@川普Tweet</a> 
+          <a class="a" href="http://www.redream.cn/main/love.php">@表白墙</a> 
+          <a class="a" href="http://item.redream.cn/xuan/thanks/#">@thanks</a>
+          <a class="a" href="http://www.redream.cn/main/treehole.php">@树洞</a> 
+          <a class="a" :href="'http://www.redream.cn/weixin/redream/diary/index.php?id='+userObj['openid']">@树洞日记</a> 
+
         </div>
         <reply :items="dataArr" :userinfo="userObj"></reply>
         <div class="again">
@@ -52,7 +70,7 @@
     <popup
       v-model="popupVisible"
       popup-transition="popup-fade">
-      <img src="http://og7lnhyuz.bkt.clouddn.com/item/image/jpg/zanshang.jpgzanshang.jpg" alt="">
+      <img width="200" src="http://og7lnhyuz.bkt.clouddn.com/item/image/jpg/pay2.jpgpay.jpg" alt="">
     </popup>
   </div>
 </template>
@@ -127,7 +145,7 @@ export default {
         this.userObj=data
         this.headimgurl=data.headimgurl
         // Object.assign(this.userObj,data)
-        
+        // console.log(this.userObj)
       })
       .catch((e) =>{
         console.error('get_user_info',e)
@@ -219,6 +237,14 @@ export default {
   background-color: #bd8552;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
   color: #fff;
+  font-size: 12px;
+}
+.a{
+  color:#fff;
+  font-size: 12px;
+}
+.notice .a{
+  color:#0066cc;
   font-size: 12px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-	<div class="subscribe" @click="go">
-    <span>@<a class="-link">“ 南开一梦 ”</a>出品<!-- <badge type="error">9</badge> --></span>
+	<div class="subscribe" >
+    <span>@<a class="-link" @click="go">“ 南开一梦 ”</a>出品 |<a class="-link" @click="go2tv">免流量电视</a><!-- <badge type="error">9</badge> --></span>
     <!-- <span>👉</span> -->
   </div>
 </template>
@@ -18,6 +18,9 @@ export default{
 	methods: {
 		go(){
 			location.href="http://mp.weixin.qq.com/s?__biz=MzIzNjE4NDI5Nw==&mid=2650650183&idx=1&sn=d23fdadc0380cb40399c525479e56cb8#rd"
+		},
+		go2tv(){
+			location.href="http://item.redream.cn/mobile_tv/#/"
 		}
 	}
 }
@@ -30,7 +33,7 @@ export default{
 		justify-content: center;
 		border-top:solid 1px #eee;
 		border-bottom:solid 1px #eee;
-		font-size: 13px;
+		font-size: 12px;
 		color: #999;
 		.-link{
 			color:#0066cc;

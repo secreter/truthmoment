@@ -202,7 +202,7 @@ $signPackage = $jssdk->GetSignPackage();
 			  }
 			}
     </style>
-  <link href=./static/css/app.755d6de5d3f384afa1d5c0707c4ea1ea.css rel=stylesheet></head><body><div id=app></div><div id=loading-box class=loading><div class=loading-words>有人喝醉了去表达<br>而我却在清醒下挣扎</div><div class="heart heart1"></div><div class="heart heart2"></div></div><script type=text/javascript src=./static/js/manifest.82605e44ef6d5174faba.js></script><script type=text/javascript src=./static/js/vendor.318d4fd10439081c70da.js></script><script type=text/javascript src=./static/js/app.b1f3a7f83599adfe0cc5.js></script></body>
+  <link href=./static/css/app.41c5c97aa4d764a603b01bc28bfe3a84.css rel=stylesheet></head><body><div id=app></div><div id=loading-box class=loading><div class=loading-words>有人喝醉了去表达<br>而我却在清醒下挣扎</div><div class="heart heart1"></div><div class="heart heart2"></div></div><script type=text/javascript src=./static/js/manifest.c4b8982885a6db4628f9.js></script><script type=text/javascript src=./static/js/vendor.9ed7935eb87c232b1f05.js></script><script type=text/javascript src=./static/js/app.5c78c1dbbe37250b3c58.js></script></body>
   
   <script>
   	setTimeout(function(){
@@ -266,7 +266,7 @@ wx.ready(function () {
 
     // 在这里调用 API
     wx.onMenuShareTimeline({
-	    title: nickname+'接受了春节真心话挑战，新年敢问就敢答！', // 分享标题
+	    title: nickname+'接受了真心话挑战，匿名提问敢问就敢答，表白也不介意！', // 分享标题
 	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
 	    success: function () { 
@@ -277,7 +277,7 @@ wx.ready(function () {
 	    }
 	});
 	wx.onMenuShareAppMessage({
-	    title: nickname+'接受了春节真心话挑战，新年敢问就敢答！', // 分享标题
+	    title: nickname+'接受了真心话挑战，匿名提问敢问就敢答，表白也不介意！', // 分享标题
 	    desc: '真心话大挑战，你敢应战否？', // 分享描述
 	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
@@ -291,7 +291,7 @@ wx.ready(function () {
 	    }
 	});
 	wx.onMenuShareQQ({
-	    title: nickname+'接受了春节真心话挑战，新年敢问就敢答！', // 分享标题
+	    title: nickname+'接受了真心话挑战，匿名提问敢问就敢答，表白也不介意！', // 分享标题
 	    desc: '真心话大挑战，你敢应战否？', // 分享描述
 	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
@@ -303,7 +303,7 @@ wx.ready(function () {
 	    }
 	});
 	wx.onMenuShareWeibo({
-	    title: nickname+'接受了春节真心话挑战，新年敢问就敢答！', // 分享标题
+	    title: nickname+'接受了真心话挑战，匿名提问敢问就敢答，表白也不介意！', // 分享标题
 	    desc: '真心话大挑战，你敢应战否？', // 分享描述
 	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
@@ -315,7 +315,7 @@ wx.ready(function () {
 	    }
 	});
 	wx.onMenuShareQZone({
-	    title: nickname+'接受了春节真心话挑战，新年敢问就敢答！', // 分享标题
+	    title: nickname+'接受了真心话挑战，匿名提问敢问就敢答，表白也不介意！', // 分享标题
 	    desc: '真心话大挑战，你敢应战否？', // 分享描述
 	    link: window.location.href, // 分享链接
 	    imgUrl: headimgurl, // 分享图标
