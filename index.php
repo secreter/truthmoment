@@ -202,7 +202,7 @@ $signPackage = $jssdk->GetSignPackage();
 			  }
 			}
     </style>
-  <link href=./static/css/app.41c5c97aa4d764a603b01bc28bfe3a84.css rel=stylesheet></head><body><div id=app></div><div id=loading-box class=loading><div class=loading-words>有人喝醉了去表达<br>而我却在清醒下挣扎</div><div class="heart heart1"></div><div class="heart heart2"></div></div><script type=text/javascript src=./static/js/manifest.c4b8982885a6db4628f9.js></script><script type=text/javascript src=./static/js/vendor.9ed7935eb87c232b1f05.js></script><script type=text/javascript src=./static/js/app.5c78c1dbbe37250b3c58.js></script></body>
+  <link href=./static/css/app.41c5c97aa4d764a603b01bc28bfe3a84.css rel=stylesheet></head><body><div id=app></div><div id=loading-box class=loading><div class=loading-words>有人喝醉了去表达<br>而我却在清醒下挣扎</div><div class="heart heart1"></div><div class="heart heart2"></div></div><script type=text/javascript src=./static/js/manifest.b45694247b97dfc04c23.js></script><script type=text/javascript src=./static/js/vendor.9ed7935eb87c232b1f05.js></script><script type=text/javascript src=./static/js/app.173e3375c4d8b4c54be2.js></script></body>
   
   <script>
   	setTimeout(function(){
